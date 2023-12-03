@@ -16,3 +16,4 @@ endfunction()
 
 addExe("day_1" day1/trebuchet.cpp)
 addExe("day_2" day2/cube_conudrum.cpp)
+addExe("day_3" day3/gear_ratios.cpp)
