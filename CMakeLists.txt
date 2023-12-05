@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(AOC2022)
+project(AOC2023)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -18,3 +18,4 @@ addExe("day_1" day1/trebuchet.cpp)
 addExe("day_2" day2/cube_conudrum.cpp)
 addExe("day_3" day3/gear_ratios.cpp)
 addExe("day_4" day4/scratchcards.cpp)
+addExe("day_5" day5/fertilizer.cpp)
