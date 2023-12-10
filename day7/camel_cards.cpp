@@ -3,7 +3,6 @@
 //
 
 #include <fstream>
-#include <functional>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -116,11 +115,15 @@ size_t part_2(char const* fn)
 {
     auto get_type = [](std::string_view cards_) {
         std::string_view const CARDS = "23456789TQKA";
-        auto cards = std::string{cards_};
-        std::sort(cards.begin(), cards.end());
-        auto it = std::remove(cards.begin(), cards.end(), 'J');
-        int cnt_j = std::distance(it, cards.end());
-        cards.erase(it, cards.end());
+
+        int cnt_j = 0;
+        std::string cards{};
+        cards.reserve(cards_.size());
+        for (auto c : cards_)
+            if (c == 'J')
+                cnt_j++;
+            else
+                cards += c;
 
         if (cnt_j >= 4) return hand_t::type_t::FiveOfAKind;
 
@@ -136,10 +139,10 @@ size_t part_2(char const* fn)
         else if (cnt[0] == 3)
         {
             type = hand_t::type_t::ThreeOfAKind;
-            if (cnt_j == 1)
-                type = hand_t::type_t::FourOfAKind;
-            else if (cnt_j == 2)
+            if (cnt_j == 2)
                 type = hand_t::type_t::FiveOfAKind;
+            else if (cnt_j == 1)
+                type = hand_t::type_t::FourOfAKind;
         }
         else if (cnt[0] == 2)
         {
@@ -202,7 +205,7 @@ size_t part_2(char const* fn)
 
 int main(int argc, char* argv[])
 {
-    //std::cout << "What are the total winnings?\n" << part_1(argv[1]) << std::endl;
+    std::cout << "What are the total winnings?\n" << part_1(argv[1]) << std::endl;
     std::cout << "What are the new total winnings?\n" << part_2(argv[1]) << std::endl;
 
     return 0;
