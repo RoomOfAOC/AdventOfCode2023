@@ -73,6 +73,75 @@ input_t rotate(input_t const& in)
     return out;
 }
 
+void roll_n(input_t& in)
+{
+    int rows = in.size();
+    int cols = in[0].size();
+    for (auto c = 0; c < cols; c++)
+        for (auto r = 1; r < rows; r++)
+        {
+            if (in[r][c] == 'O' && in[r - 1][c] == '.')
+            {
+                // find most prev pos
+                int prev = r - 1;
+                while (prev > 0 && in[prev - 1][c] == '.')
+                    prev--;
+                std::swap(in[r][c], in[prev][c]);
+            }
+        }
+}
+
+void roll_s(input_t& in)
+{
+    int rows = in.size();
+    int cols = in[0].size();
+    for (auto c = 0; c < cols; c++)
+        for (auto r = rows - 2; r >= 0; r--)
+        {
+            if (in[r][c] == 'O' && in[r + 1][c] == '.')
+            {
+                int prev = r + 1;
+                while (prev < rows - 1 && in[prev + 1][c] == '.')
+                    prev++;
+                std::swap(in[r][c], in[prev][c]);
+            }
+        }
+}
+
+void roll_w(input_t& in)
+{
+    int rows = in.size();
+    int cols = in[0].size();
+    for (auto r = 0; r < rows; r++)
+        for (auto c = 1; c < cols; c++)
+        {
+            if (in[r][c] == 'O' && in[r][c - 1] == '.')
+            {
+                int prev = c - 1;
+                while (prev > 0 && in[r][prev - 1] == '.')
+                    prev--;
+                std::swap(in[r][c], in[r][prev]);
+            }
+        }
+}
+
+void roll_e(input_t& in)
+{
+    int rows = in.size();
+    int cols = in[0].size();
+    for (auto r = 0; r < rows; r++)
+        for (auto c = cols - 2; c >= 0; c--)
+        {
+            if (in[r][c] == 'O' && in[r][c + 1] == '.')
+            {
+                int prev = c + 1;
+                while (prev < cols - 1 && in[r][prev + 1] == '.')
+                    prev++;
+                std::swap(in[r][c], in[r][prev]);
+            }
+        }
+}
+
 int part_2(char const* fn)
 {
     constexpr size_t cycles = 1'000'000'000;
@@ -83,11 +152,17 @@ int part_2(char const* fn)
     std::unordered_map<input_t, size_t, container_hash<input_t>> visited;
     while (c < cycles)
     {
-        for (auto i = 0; i < 4; i++)
-        {
-            roll(input);
-            input = rotate(input);
-        }
+        // rotate is slow
+        // for (auto i = 0; i < 4; i++)
+        // {
+        //     roll(input);
+        //     input = rotate(input);
+        // }
+
+        roll_n(input);
+        roll_w(input);
+        roll_s(input);
+        roll_e(input);
 
         c++;
 
