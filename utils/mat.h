@@ -107,6 +107,8 @@ public:
 
     bool valid_pos(int const i, int const j) const { return (0 <= i && i < rows) && (0 <= j && j < cols); }
 
+    bool valid_pos(Point const& p) const { return valid_pos(p.x, p.y); }
+
     void find_8_neighbors(int const i, int const j, std::vector<Point>& neighbors) const
     {
         // eight directions
