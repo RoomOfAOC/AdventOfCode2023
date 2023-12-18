@@ -48,3 +48,10 @@ template <typename T> T parse_num(std::string_view token)
     std::from_chars(token.data(), token.data() + token.size(), num);
     return num;
 }
+
+template <typename T> T parse_hex_num(std::string_view token)
+{
+    T num{};
+    std::from_chars(token.data(), token.data() + token.size(), num, 16);
+    return num;
+}
