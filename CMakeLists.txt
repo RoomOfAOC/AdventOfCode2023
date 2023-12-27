@@ -1,4 +1,9 @@
 cmake_minimum_required(VERSION 3.17)
+
+if(WIN32)
+    set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE INTERNAL "" FORCE)
+endif()
+
 project(AOC2023)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -33,3 +38,7 @@ addExe(day20)
 addExe(day21)
 addExe(day22)
 addExe(day23)
+
+find_package(Z3 CONFIG REQUIRED)
+addExe(day24)
+target_link_libraries(day24 PRIVATE z3::libz3)
