@@ -42,3 +42,5 @@ addExe(day23)
 find_package(Z3 CONFIG REQUIRED)
 addExe(day24)
 target_link_libraries(day24 PRIVATE z3::libz3)
+
+addExe(day25)
